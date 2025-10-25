@@ -1,0 +1,65 @@
+class Solution 
+{
+    public ArrayList<Integer> search(int[] a, int[] b) 
+    {
+        // code here
+        int lps [] = new int[b.length];
+        kMG(b,lps);
+        int i = 0;
+        int j = 0;
+        ArrayList<Integer> ind = new ArrayList<>();
+        while(i<a.length)
+        {
+            if(a[i]==b[j])
+            {
+                i++;
+                j++;
+            }
+            if(j==b.length)
+            {
+                ind.add(i-j);
+                j = lps[j-1];
+            }
+            if(i<a.length && a[i]!=b[j])
+            {
+                if(j!=0)
+                {
+                    j = lps[j-1];
+                }
+                else
+                {
+                    i++;
+                }
+            }
+            
+        }
+        return ind;
+        
+    }
+    public void kMG(int b[], int lps[])
+    {
+        int i = 1;
+        int len = 0;
+        while(i<b.length)
+        {
+            if(b[i]==b[len])
+            {
+                len++;
+                lps[i] = len;
+                i++;
+            }
+            else
+            {
+                if(len!=0)
+                {
+                    len = lps[len-1];
+                }
+                else
+                {
+                    lps[i] = 0;
+                    i++;
+                }
+            }
+        }
+    }
+}
