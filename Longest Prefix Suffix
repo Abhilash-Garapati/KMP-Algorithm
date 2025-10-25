@@ -1,0 +1,33 @@
+class Solution {
+    int getLPSLength(String s) 
+    {
+        // code here
+        int lps [] = new int[s.length()];
+        int len = 0;
+        int i = 1;
+        int res=0;
+        while(i<s.length())
+        {
+            if(s.charAt(len)==s.charAt(i))
+            {
+                len++;
+                lps[i] = len;
+                i++;
+            }
+            else
+            {
+                if(len!=0)
+                {
+                    len = lps[len-1];
+                }
+                else
+                {
+                    lps[i] = 0;
+                    i++;
+                }
+            }
+            //res = Math.max(res,lps[i]);
+        }
+        return lps[s.length()-1];
+    }
+}
